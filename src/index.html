@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tween Dots Timeline</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div class="app-wrap">
+    <div class="graph-wrapper">
+      <svg width="100%" height="100%" viewBox="0 0 400 400">
+        <circle class="circle" cx="0" cy="0" r="4" transform="translate(40 200)" />
+        <circle class="circle" cx="0" cy="0" r="5" transform="translate(200 200)" />
+        <circle class="circle" cx="0" cy="0" r="3" transform="translate(360 200)" />
+      </svg>
+    </div>
+    <div class="timeline-wrap">
+      <div class="timeline-hashes">
+        <span class="timeline-hash">2010</span>
+        <span class="timeline-hash">2012</span>
+        <span class="timeline-hash">2014</span>
+        <span class="timeline-hash">2016</span>
+        <span class="timeline-hash">2018</span>
+        <span class="timeline-hash">2020</span>
+      </div>
+      <div class="timeline-progress"></div>
+      <input type="range" id="timeline" name="timeline" min="1" max="6" value="1">
+
+      <div id="play-button" class="play-button">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.7187 8.85938L4.42968 16.5318L4.42968 1.18693L17.7187 8.85938Z" fill="black" />
+          <rect x="4" y="2" width="4" height="14" fill="black" />
+          <rect x="11" y="2" width="4" height="14" fill="black" />
+        </svg>
+        <span>Play</span>
+      </div>
+    </div>
+  </div>
+  <script src="./init.js"></script>
+</body>
+
+</html>
