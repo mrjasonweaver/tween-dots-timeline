@@ -6,10 +6,14 @@ export const writePlayButton = function writePlayButton(text = "") {
   document.querySelector(".button").innerHTML = `<div class="button-inner">${text}</div>`;
 };
 
-export const modCircleRadius = function modCircleRadius(radius) {
+export const modCircleRadius = function modCircleRadius(easingIncrementer, currentRangeValue) {
   Array.from(document.querySelectorAll(".circle")).forEach(c => {
-    const currentRadius = c.getAttribute('r');
-    return c.setAttribute('r', +currentRadius + +radius / 120)
+    let nextRadius = c.dataset['points'].split(' ');
+    let nextRadiusIndex = +currentRangeValue - 1;
+    let currentRadius = +currentRangeValue === 1 ? +c.getAttribute('r') : +nextRadius[currentRangeValue - 2];
+    let totalRadiusAmount = +nextRadius[nextRadiusIndex] - currentRadius;
+    let setRadius = currentRadius += (totalRadiusAmount * easingIncrementer);
+    return c.setAttribute('r', setRadius);
   });
 };
 

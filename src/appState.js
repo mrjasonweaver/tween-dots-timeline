@@ -12,6 +12,10 @@ import {
   getComputedPerentage
 } from "./constants";
 
+import {
+  linear
+} from './easing';
+
 const appState = {
   current: "INIT",
   currentRangeValue: 1,
@@ -41,10 +45,13 @@ const appState = {
   },
   animateDots() {
     this.animateDotsInterval = this.timer + 1;
-    modCircleRadius(5 + (FRAME_RATE / 2) - (this.timeToStopDotsAnimation - this.timer));
+    let incrementer = ((this.timer - this.timeToStopDotsAnimation) + FRAME_RATE) + 1;
+    let decimalIncrementer = ((incrementer / FRAME_RATE) * 100) / 100;
+    let easingIncrementer = linear(decimalIncrementer);
+    modCircleRadius(easingIncrementer, this.currentRangeValue);
   },
   startDotsAnimation() {
-    this.timeToStopDotsAnimation = this.timer + (FRAME_RATE / 2);
+    this.timeToStopDotsAnimation = this.timer + FRAME_RATE;
   },
   endDotsAnimation() {
     this.animateDotsInterval = -1;
