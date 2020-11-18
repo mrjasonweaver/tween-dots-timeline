@@ -29,16 +29,16 @@ const appState = {
     if (this.current === 'INIT') {
       this.startPlaying();
     }
-    if (this.timer % FRAME_RATE == 0 && this.current === 'PLAYING') {
+    if (this.timer === this.timeToMoveNextDate) {
       this.moveToNextTimeInterval();
     }
-    if (this.timer === this.timelineProgressInterval && this.current === 'PLAYING') {
+    if (this.timer === this.timelineProgressInterval) {
       this.animateTimeline();
     }
-    if (this.timer === this.animateDotsInterval && this.current === 'PLAYING') {
+    if (this.timer === this.animateDotsInterval) {
       this.animateDots();
     }
-    if (this.timer === this.timeToStopDotsAnimation && this.current === 'PLAYING') {
+    if (this.timer === this.timeToStopDotsAnimation) {
       this.endDotsAnimation();
     }
     return this.timer;
@@ -61,11 +61,14 @@ const appState = {
     modTimelineProgress(getComputedPerentage(this.timer, this.timeToMoveNextDate, this.currentRangeValue));
   },
   startPlaying() {
+    this.timeToMoveNextDate = this.timer + FRAME_RATE;
     this.current = "PLAYING";
+    this.animateTimeline();
+    this.startDotsAnimation()
+    this.animateDots();
   },
   moveToNextTimeInterval() {
-    this.timeToMoveNextDate = this.timer + FRAME_RATE;
-    if (this.currentRangeValue > 5) {
+    if (this.currentRangeValue === 6) {
       this.current = "IDLE";
       this.timer = 0;
       this.timelineProgressInterval = -1;
@@ -74,12 +77,12 @@ const appState = {
       this.timeToStopDotsAnimation = -1;
       this.currentRangeValue = 1;
     } else {
+      this.timeToMoveNextDate = this.timer + FRAME_RATE;
       this.currentRangeValue++;
+      this.startDotsAnimation()
+      this.animateDots();
+      modRangePosition(this.currentRangeValue);
     }
-    this.animateTimeline();
-    this.startDotsAnimation()
-    this.animateDots();
-    modRangePosition(this.currentRangeValue);
   }
 }
 
