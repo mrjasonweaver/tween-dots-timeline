@@ -3,7 +3,8 @@ import {
   writePlayButton,
   modCircleRadius,
   modTimelineProgress,
-  modRangePosition
+  modRangePosition,
+  modThumbPosition
 } from "./ui";
 
 import {
@@ -13,7 +14,8 @@ import {
 } from "./constants";
 
 import {
-  linear
+  linear,
+  easeInQuint
 } from './easing';
 
 const appState = {
@@ -24,6 +26,9 @@ const appState = {
   timeToMoveNextDate: -1,
   animateDotsInterval: -1,
   timeToStopDotsAnimation: -1,
+  timeToStartThumbAnimation: -1,
+  timeToStopThumbAnimation: -1,
+  animateThumbInterval: -1,
   tick() {
     this.timer++;
     if (this.current === 'INIT') {
@@ -40,6 +45,15 @@ const appState = {
     }
     if (this.timer === this.timeToStopDotsAnimation) {
       this.endDotsAnimation();
+    }
+    if (this.timer === this.timeToStartThumbAnimation) {
+      this.animateTimelineThumb();
+    }
+    if (this.timer === this.animateThumbInterval) {
+      this.animateTimelineThumb();
+    }
+    if (this.timer === this.timeToStopThumbAnimation) {
+      this.stopThumbAnimation();
     }
     return this.timer;
   },
@@ -60,8 +74,22 @@ const appState = {
     this.timelineProgressInterval = this.timer + 1;
     modTimelineProgress(getComputedPerentage(this.timer, this.timeToMoveNextDate, this.currentRangeValue));
   },
+  animateTimelineThumb() {
+    this.animateThumbInterval = this.timer + 1;
+    let incrementer = ((this.timer - this.timeToStopThumbAnimation) + (FRAME_RATE / 2)) + 1;
+    let decimalIncrementer = ((incrementer / (FRAME_RATE / 2)) * 100) / 100;
+    let easingIncrementer = easeInQuint(decimalIncrementer);
+    modThumbPosition(easingIncrementer, this.currentRangeValue);
+  },
+  stopThumbAnimation() {
+    this.animateThumbInterval = -1;
+    this.timeToStartThumbAnimation = -1;
+    this.timeToStopThumbAnimation = -1;
+  },
   startPlaying() {
     this.timeToMoveNextDate = this.timer + FRAME_RATE;
+    this.timeToStartThumbAnimation = this.timer + (FRAME_RATE / 2);
+    this.timeToStopThumbAnimation = this.timer + FRAME_RATE;
     this.current = "PLAYING";
     this.animateTimeline();
     this.startDotsAnimation()
@@ -75,9 +103,10 @@ const appState = {
       this.timeToMoveNextDate = -1;
       this.animateDotsInterval = -1;
       this.timeToStopDotsAnimation = -1;
-      this.currentRangeValue = 1;
     } else {
       this.timeToMoveNextDate = this.timer + FRAME_RATE;
+      this.timeToStartThumbAnimation = this.timer + (FRAME_RATE / 2);
+      this.timeToStopThumbAnimation = this.timer + FRAME_RATE;
       this.currentRangeValue++;
       this.startDotsAnimation()
       this.animateDots();

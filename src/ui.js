@@ -25,3 +25,11 @@ export const modTimelineProgress = function modTimelineProgress(width) {
 export const modRangePosition = function modRangePosition(position) {
   document.querySelector("#timeline").value = position;
 };
+
+export const modThumbPosition = function modThumbPosition(easingIncrementer, currentRangeValue) {
+  const thumb = document.querySelector('.faux-thumb');
+  let currentRangePosition = currentRangeValue > 1 ? (571 / 5) * (currentRangeValue - 1) : 0;
+  let nextRangePosition = (571 / 5) * (currentRangeValue - 1);
+  thumb.style.transform = `translate(${nextRangePosition}px, 0)`;
+  console.log(easingIncrementer, currentRangeValue);
+};

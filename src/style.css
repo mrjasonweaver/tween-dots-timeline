@@ -32,25 +32,35 @@ body {
   border: 1px solid black;
   border-radius: 21px;
 }
+.faux-thumb {
+  position: absolute;
+  top: 43px;
+  left: 4px;
+  height: 21px;
+  width: 21px;
+  background: black;
+  border-radius: 21px;
+  cursor: pointer;
+}
 #timeline::-webkit-slider-thumb {
   -webkit-appearance: none;
   height: 21px;
   width: 21px;
-  background: black;
+  background: transparent;
   border-radius: 21px;
   cursor: pointer;
 }
 #timeline::-moz-range-thumb {
   height: 21px;
   width: 21px;
-  background: black;
+  background: transparent;
   border-radius: 21px;
   cursor: pointer;
 }
 #timeline::-ms-thumb {
   height: 21px;
   width: 21px;
-  background: black;
+  background: transparent;
   border-radius: 21px;
   cursor: pointer;
 }
