@@ -1,7 +1,7 @@
 * {
   box-sizing: border-box;
   transition: all .15s ease-in-out;
-  transition-property: background, color, border;
+  transition-property: background, color, border, fill;
 }
 .theme-default {
   --color-background: white;
