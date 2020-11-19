@@ -113,18 +113,29 @@ body {
   position: relative;
   z-index: 3;
 }
+@keyframes popUp {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  80% {
+    transform: scale(1.35) translate(0, -6px);
+  }
+  100% {
+    transform: scale(1.3) translate(0, -5px);
+  }
+}
 .timeline-hash {
   position: relative;
   color: black;
 }
 .timeline-hash.active {
-  transition: transform .1s ease-out;
-  transform: scale(1.3) translate(0, -5px);
+  animation: popUp .25s cubic-bezier(0,.01,.19,.99) 1 normal forwards;
 }
 .timeline-hash:nth-child(2):after,
 .timeline-hash:nth-child(3):after,
 .timeline-hash:nth-child(4):after,
 .timeline-hash:nth-child(5):after {
+  transition: none;
   content: '';
   position: absolute;
   display: block;
@@ -133,6 +144,7 @@ body {
   background: black;
   top: 33px;
   left: calc(50% - .5px);
+  transform: scale(1) translate(0, 0);
 }
 .timeline-hash.active:after {
   transform: scale(.7) translate(0, -4px);
