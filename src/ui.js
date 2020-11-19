@@ -26,10 +26,19 @@ export const modRangePosition = function modRangePosition(position) {
   document.querySelector("#timeline").value = position;
 };
 
+export const modRangeHash = function modRangePosition(position) {
+  const hashes = Array.from(document.querySelectorAll('.timeline-hash'));
+  hashes.forEach(h => h.classList.remove('active'));
+  hashes[position - 1].classList.add('active');
+};
+
 export const modThumbPosition = function modThumbPosition(easingIncrementer, currentRangeValue) {
   const thumb = document.querySelector('.faux-thumb');
   let currentRangePosition = currentRangeValue > 1 ? (571 / 5) * (currentRangeValue - 1) : 0;
-  let nextRangePosition = (571 / 5) * (currentRangeValue - 1);
-  thumb.style.transform = `translate(${nextRangePosition}px, 0)`;
-  console.log(easingIncrementer, currentRangeValue);
+  let nextRangePosition = (571 / 5) * (currentRangeValue);
+  let difference = nextRangePosition - currentRangePosition;
+  let setPosition = currentRangePosition += (difference * easingIncrementer);
+  if (currentRangeValue !== 6) {
+    thumb.style.transform = `translate(${setPosition}px, 0)`;
+  }
 };

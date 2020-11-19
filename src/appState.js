@@ -4,7 +4,8 @@ import {
   modCircleRadius,
   modTimelineProgress,
   modRangePosition,
-  modThumbPosition
+  modThumbPosition,
+  modRangeHash
 } from "./ui";
 
 import {
@@ -76,8 +77,8 @@ const appState = {
   },
   animateTimelineThumb() {
     this.animateThumbInterval = this.timer + 1;
-    let incrementer = ((this.timer - this.timeToStopThumbAnimation) + (FRAME_RATE / 2)) + 1;
-    let decimalIncrementer = ((incrementer / (FRAME_RATE / 2)) * 100) / 100;
+    let incrementer = ((this.timer - this.timeToStopThumbAnimation) + ((FRAME_RATE / 3) * 2)) + 1;
+    let decimalIncrementer = ((incrementer / ((FRAME_RATE / 3) * 2)) * 100) / 100;
     let easingIncrementer = easeInQuint(decimalIncrementer);
     modThumbPosition(easingIncrementer, this.currentRangeValue);
   },
@@ -88,7 +89,7 @@ const appState = {
   },
   startPlaying() {
     this.timeToMoveNextDate = this.timer + FRAME_RATE;
-    this.timeToStartThumbAnimation = this.timer + (FRAME_RATE / 2);
+    this.timeToStartThumbAnimation = this.timer + ((FRAME_RATE / 3) * 2);
     this.timeToStopThumbAnimation = this.timer + FRAME_RATE;
     this.current = "PLAYING";
     this.animateTimeline();
@@ -105,12 +106,13 @@ const appState = {
       this.timeToStopDotsAnimation = -1;
     } else {
       this.timeToMoveNextDate = this.timer + FRAME_RATE;
-      this.timeToStartThumbAnimation = this.timer + (FRAME_RATE / 2);
+      this.timeToStartThumbAnimation = this.timer + ((FRAME_RATE / 3) * 2);
       this.timeToStopThumbAnimation = this.timer + FRAME_RATE;
       this.currentRangeValue++;
       this.startDotsAnimation()
       this.animateDots();
       modRangePosition(this.currentRangeValue);
+      modRangeHash(this.currentRangeValue);
     }
   }
 }
