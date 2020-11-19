@@ -1,26 +1,45 @@
 * {
   box-sizing: border-box;
 }
+.theme-default {
+  --color-background: white;
+  --color-primary: black;
+}
+.theme-default.theme-dark {
+  --color-background: black;
+  --color-primary: white;
+}
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
 }
 .app-wrap {
   width: 100%;
   height: 100%;
-  background: white;
+  background: var(--color-background);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.app-wrap.dark-theme {
-  background: black;
-}
 .graph-wrapper {
   width: 400px;
   height: 400px;
+}
+.theme-button {
+  color: var(--color-primary);
+  cursor: pointer;
+  position: absolute;
+  bottom: -30px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transform: translate(1px, 0);
+}
+.circle {
+  fill: var(--color-primary);
 }
 #timeline {
   -webkit-appearance: none;
@@ -29,7 +48,7 @@ body {
   background: transparent;
   position: relative;
   z-index: 2;
-  border: 1px solid black;
+  border: 1px solid var(--color-primary);
   border-radius: 21px;
 }
 .faux-thumb {
@@ -38,7 +57,7 @@ body {
   left: 4px;
   height: 21px;
   width: 21px;
-  background: black;
+  background: var(--color-primary);
   border-radius: 21px;
   cursor: pointer;
 }
@@ -47,6 +66,7 @@ body {
   height: 21px;
   width: 21px;
   background: transparent;
+  border-color: transparent;
   border-radius: 21px;
   cursor: pointer;
 }
@@ -54,6 +74,7 @@ body {
   height: 21px;
   width: 21px;
   background: transparent;
+  border-color: transparent;
   border-radius: 21px;
   cursor: pointer;
 }
@@ -61,6 +82,7 @@ body {
   height: 21px;
   width: 21px;
   background: transparent;
+  border-color: transparent;
   border-radius: 21px;
   cursor: pointer;
 }
@@ -72,7 +94,7 @@ body {
   height: 21px;
   cursor: pointer;
   background: transparent; 
-  border-color: black;
+  border-color: var(--color-primary);
   border-radius: 21px;
   color: transparent;
 }
@@ -81,7 +103,7 @@ body {
   height: 21px;
   cursor: pointer;
   background: transparent;
-  border-color: black;
+  border-color: var(--color-primary);
   border-radius: 21px;
   color: transparent;
 }
@@ -90,7 +112,7 @@ body {
   height: 21px;
   cursor: pointer;
   background: transparent;
-  border-color: black;
+  border-color: var(--color-primary);
   border-radius: 21px;
   color: transparent;
 }
@@ -126,7 +148,7 @@ body {
 }
 .timeline-hash {
   position: relative;
-  color: black;
+  color: var(--color-primary);
 }
 .timeline-hash.active {
   animation: popUp .25s cubic-bezier(0,.01,.19,.99) 1 normal forwards;
@@ -141,7 +163,7 @@ body {
   display: block;
   height: 21px;
   width: 1px;
-  background: black;
+  background: var(--color-primary);
   top: 33px;
   left: calc(50% - .5px);
   transform: scale(1) translate(0, 0);
@@ -155,9 +177,10 @@ body {
   left: 0.5%;
   width: 0%;
   height: 21px;
-  background: rgba(0,0,0,.1);
+  background: var(--color-primary);
   z-index: 0;
   border-radius: 21px 0 0 21px;
+  opacity: .175;
 }
 .play-button {
   margin-top: 30px;
@@ -166,30 +189,31 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: var(--color-background);
   font-family: sans-serif;
   font-size: 16px;
   font-weight: 300;
-  border: 1px solid black;
+  border: 1px solid var(--color-primary);
   border-radius: 4px;
   letter-spacing: 1px;
 }
 .play-button:hover {
   cursor: pointer;
-  transform: scale(1.01);
 }
 .play-button:active {
   cursor: pointer;
-  transform: scale(.99);
+  transform: translate(0, 1px) scale(.98);
 }
 .play-button span {
-  color: black;
+  color: var(--color-primary);
   margin-left: 10px;
 }
 .play-button svg path {
+  fill: var(--color-primary);
   opacity: 1;
 }
 .play-button svg rect {
+  fill: var(--color-primary);
   opacity: 0;
 }
 .play-button.playing svg path {

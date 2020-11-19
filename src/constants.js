@@ -2,7 +2,6 @@ export const ONE_SECOND = 1000;
 export const FRAME_RATE = 60;
 export const RANGE_PERCENTAGE = 98.5;
 export const TICK_RATE = ONE_SECOND / FRAME_RATE;
-export const THEME = ["light", "dark"];
 
 export const getComputedPerentage = (timer, nextDate, currentRange) => {
   const startWidth = (RANGE_PERCENTAGE / 5) * (currentRange - 1);

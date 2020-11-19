@@ -1,6 +1,5 @@
 import {
   toggleTheme,
-  writePlayButton,
   modCircleRadius,
   modTimelineProgress,
   modRangePosition,
@@ -9,18 +8,17 @@ import {
 } from "./ui";
 
 import {
-  THEME,
   FRAME_RATE,
   getComputedPerentage
 } from "./constants";
 
 import {
-  linear,
   easeInQuint
 } from './easing';
 
 const appState = {
   current: "INIT",
+  themeDark: false,
   currentRangeValue: 1,
   timer: 0,
   timelineProgressInterval: -1,
@@ -114,6 +112,10 @@ const appState = {
       this.pause();
     }
   },
+  handleThemeChange() {
+    this.themeDark = !this.themeDark;
+    toggleTheme(this.themeDark);
+  },
   moveToNextTimeInterval() {
     if (this.currentRangeValue === 6) {
       this.current = "IDLE";
@@ -139,4 +141,5 @@ const appState = {
   }
 }
 export const handleUserAction = appState.handleUserAction.bind(appState);
+export const handleThemeChange = appState.handleThemeChange.bind(appState);
 export default appState;

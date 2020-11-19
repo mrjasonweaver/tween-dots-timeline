@@ -1,5 +1,6 @@
 import appState, {
-  handleUserAction
+  handleUserAction,
+  handleThemeChange
 } from "./appState";
 import initButtons from "./buttons";
 import {
@@ -7,7 +8,7 @@ import {
 } from './constants';
 
 async function init() {
-  initButtons(handleUserAction);
+  initButtons(handleUserAction, handleThemeChange);
 
   let nextTimeToTick = Date.now();
 

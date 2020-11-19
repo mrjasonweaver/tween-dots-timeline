@@ -126,7 +126,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.modThumbPosition = exports.modRangeHash = exports.modRangePosition = exports.modTimelineProgress = exports.modCircleRadius = exports.writePlayButton = exports.toggleTheme = void 0;
 
 const toggleTheme = function toggleTheme(show) {
-  document.querySelector(".app-wrap").classList.toggle("theme-dark", !show);
+  document.querySelector('body').classList.toggle("theme-dark", show);
 };
 
 exports.toggleTheme = toggleTheme;
@@ -189,7 +189,7 @@ exports.modThumbPosition = modThumbPosition;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getComputedPerentage = exports.THEME = exports.TICK_RATE = exports.RANGE_PERCENTAGE = exports.FRAME_RATE = exports.ONE_SECOND = void 0;
+exports.getComputedPerentage = exports.TICK_RATE = exports.RANGE_PERCENTAGE = exports.FRAME_RATE = exports.ONE_SECOND = void 0;
 const ONE_SECOND = 1000;
 exports.ONE_SECOND = ONE_SECOND;
 const FRAME_RATE = 60;
@@ -198,8 +198,6 @@ const RANGE_PERCENTAGE = 98.5;
 exports.RANGE_PERCENTAGE = RANGE_PERCENTAGE;
 const TICK_RATE = ONE_SECOND / FRAME_RATE;
 exports.TICK_RATE = TICK_RATE;
-const THEME = ["light", "dark"];
-exports.THEME = THEME;
 
 const getComputedPerentage = (timer, nextDate, currentRange) => {
   const startWidth = RANGE_PERCENTAGE / 5 * (currentRange - 1);
@@ -278,7 +276,7 @@ exports.easeInOutQuint = easeInOutQuint;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.handleUserAction = void 0;
+exports.default = exports.handleThemeChange = exports.handleUserAction = void 0;
 
 var _ui = require("./ui");
 
@@ -288,6 +286,7 @@ var _easing = require("./easing");
 
 const appState = {
   current: "INIT",
+  themeDark: false,
   currentRangeValue: 1,
   timer: 0,
   timelineProgressInterval: -1,
@@ -402,6 +401,11 @@ const appState = {
     }
   },
 
+  handleThemeChange() {
+    this.themeDark = !this.themeDark;
+    (0, _ui.toggleTheme)(this.themeDark);
+  },
+
   moveToNextTimeInterval() {
     if (this.currentRangeValue === 6) {
       this.current = "IDLE";
@@ -429,6 +433,8 @@ const appState = {
 };
 const handleUserAction = appState.handleUserAction.bind(appState);
 exports.handleUserAction = handleUserAction;
+const handleThemeChange = appState.handleThemeChange.bind(appState);
+exports.handleThemeChange = handleThemeChange;
 var _default = appState;
 exports.default = _default;
 },{"./ui":"lA8h","./constants":"iJA9","./easing":"gfrO"}],"Vgpl":[function(require,module,exports) {
@@ -441,13 +447,16 @@ exports.default = initButtons;
 
 var _ui = require("./ui");
 
-function initButtons(handleUserAction) {
+function initButtons(handleUserAction, handleThemeChange) {
   const buttonClick = () => {
     (0, _ui.writePlayButton)('Pause');
     handleUserAction();
   };
 
   document.querySelector(".play-button").addEventListener("click", buttonClick);
+  document.querySelector('.theme-button').addEventListener("click", () => {
+    handleThemeChange();
+  });
 }
 },{"./ui":"lA8h"}],"FyzG":[function(require,module,exports) {
 "use strict";
@@ -465,7 +474,7 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 async function init() {
-  (0, _buttons.default)(_appState.handleUserAction);
+  (0, _buttons.default)(_appState.handleUserAction, _appState.handleThemeChange);
   let nextTimeToTick = Date.now();
 
   function nextAnimationFrame() {

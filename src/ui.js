@@ -1,5 +1,5 @@
 export const toggleTheme = function toggleTheme(show) {
-  document.querySelector(".app-wrap").classList.toggle("theme-dark", !show);
+  document.querySelector('body').classList.toggle("theme-dark", show);
 };
 
 export const writePlayButton = function writePlayButton(text = "") {
