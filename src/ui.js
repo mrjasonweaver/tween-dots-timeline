@@ -3,7 +3,7 @@ export const toggleTheme = function toggleTheme(show) {
 };
 
 export const writePlayButton = function writePlayButton(text = "") {
-  document.querySelector(".button").innerHTML = `<div class="button-inner">${text}</div>`;
+  // document.querySelector(".play-button-inner").innerHTML = `${text}`;
 };
 
 export const modCircleRadius = function modCircleRadius(easingIncrementer, currentRangeValue) {

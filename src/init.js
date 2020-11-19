@@ -1,10 +1,13 @@
-import appState from './appState';
+import appState, {
+  handleUserAction
+} from "./appState";
+import initButtons from "./buttons";
 import {
   TICK_RATE
 } from './constants';
 
 async function init() {
-  // initButtons(handleUserAction);
+  initButtons(handleUserAction);
 
   let nextTimeToTick = Date.now();
 
