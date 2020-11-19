@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  transition: all .15s ease-in-out;
+  transition-property: background, color, border;
 }
 .theme-default {
   --color-background: white;
@@ -157,7 +159,8 @@ body {
 .timeline-hash:nth-child(3):after,
 .timeline-hash:nth-child(4):after,
 .timeline-hash:nth-child(5):after {
-  transition: none;
+  transition: all .15s ease-in-out;
+  transition-property: background;
   content: '';
   position: absolute;
   display: block;
